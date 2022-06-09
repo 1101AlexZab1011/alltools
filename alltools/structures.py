@@ -2,7 +2,7 @@ from typing import Optional, Union, Any,\
     Callable, List, Iterable, Dict, Tuple,\
     NoReturn, Hashable
 from collections import UserDict, UserList, namedtuple
-from utils.console.colored import alarm, ColoredText
+from .console.colored import alarm, ColoredText
 
 
 class Linked(object):

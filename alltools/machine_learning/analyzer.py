@@ -1,7 +1,7 @@
 import tensorflow as tf
 import copy
 from collections import namedtuple
-from utils.structures import NumberedDict
+from ..structures import NumberedDict
 import numpy as np
 from typing import Union, Optional
 import matplotlib.colors as mc

@@ -4,8 +4,8 @@ import os
 from asyncio import Task
 from typing import Union, Callable, Optional, Coroutine
 
-from utils.console.colored import alarm
-from utils.structures import Deploy
+from ..console.colored import alarm
+from ..structures import Deploy
 
 
 def looped(func):

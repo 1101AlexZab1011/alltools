@@ -5,8 +5,8 @@ import sys
 import time
 from typing import Optional, Callable, Union, List, Tuple
 
-from utils.console.asynchrony import looped
-from utils.console.colored import clean_styles
+from ..console.asynchrony import looped
+from ..console.colored import clean_styles
 
 
 class Spinner(object):

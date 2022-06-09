@@ -1,8 +1,8 @@
 from typing import Union, Callable, Optional, Any
 import tensorflow as tf
 import numpy as np
-from utils.structures import Pipeline, Deploy
-from utils.data_management import convert_base
+from ..structures import Pipeline, Deploy
+from ..data_management import convert_base
 from copy import deepcopy
 from abc import ABC, abstractmethod
 

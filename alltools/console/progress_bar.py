@@ -4,10 +4,10 @@ import time
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional, Callable, Union, NoReturn, Any
-from utils.console import delete_previous_line, edit_previous_line, add_line_above
-from utils.console.asynchrony import async_generator
-from utils.console.colored import warn, alarm
-from utils.structures import Deploy
+from ..console import delete_previous_line, edit_previous_line, add_line_above
+from ..console.asynchrony import async_generator
+from ..console.colored import warn, alarm
+from ..structures import Deploy
 
 
 def print_progress_bar(
