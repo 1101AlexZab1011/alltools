@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="example-pkg-your-username",
+    name="alltools",
     version="0.0.1",
-    author="Example Author",
-    author_email="author@example.com",
-    description="A small example package",
+    author="Alexey Zabolotniy",
+    author_email="alexey.zabolotniy.main@yandex.ru",
+    description="All the neccessary stuff",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/1101AlexZab1011/alltools",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
