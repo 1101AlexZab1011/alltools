@@ -23,7 +23,7 @@ def dict2str(
     """
 
     def tab(tabulation: int) -> str:
-        ' ' * tabulation
+        return ' ' * tabulation
 
     string = f'{tab(tabulation) if first_space else ""}{{\n'
     tabulation += space
