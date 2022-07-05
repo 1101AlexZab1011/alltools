@@ -149,8 +149,8 @@ class Progress(AbstractProgress):
 
 @dataclass
 class Spinner(AbstractProgress):
-    prefix: Optional[str] = ''
-    suffix: Optional[str] = ''
+    prefix: Optional[Union[str, Callable]] = ''
+    suffix: Optional[Union[str, Callable]] = ''
     report_message: Optional[str] = ''
     chars: Optional[list[str]] = None
     delay: Optional[float] = .1
@@ -163,6 +163,28 @@ class Spinner(AbstractProgress):
             self.chars = ['|', '/', '-', '\\']
 
     def __call__(self, move: Optional[Union[bool, int]] = True) -> str:
+
+        if isinstance(self.prefix, str):
+            prefix = self.prefix
+        elif isinstance(self.prefix, Callable):
+            prefix = self.prefix(self)
+        else:
+            raise TypeError(
+                'Prefix must be either string '
+                f'or callable, {type(self.prefix)} is given'
+            )
+        if self.iteration == self.total and self.report_message:
+            suffix = self.report_message
+        elif isinstance(self.suffix, str):
+            suffix = self.suffix
+        elif isinstance(self.suffix, Callable):
+            suffix = self.suffix(self)
+        else:
+            raise TypeError(
+                'Suffix must be either string '
+                f'or callable, {type(self.suffix)} is given'
+            )
+
         if move and self.iteration != self.total:
             if isinstance(move, bool):
                 self.iteration += 0
@@ -177,7 +199,7 @@ class Spinner(AbstractProgress):
                     f'boolean or integer, but {type(move)} is given'
                 )
 
-        return f'\r{self.prefix} {next(self)} {self.suffix}'
+        return f'\r{prefix} {next(self)} {suffix}'
 
     def __next__(self):
         out = self.chars[self.__current_state % len(self.chars)]
