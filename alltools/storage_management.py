@@ -2,6 +2,19 @@ from functools import wraps
 import hashlib
 from typing import Optional, Callable, Any, Union, Dict
 import os
+import configparser
+from functools import wraps
+
+
+def read_config_from_file(filename: str):
+    # Create a ConfigParser instance
+    config = configparser.ConfigParser()
+
+    # Read the configuration file
+    config.read(f'{filename}.cfg')
+
+    # Return the config as a Python object
+    return config
 
 
 def check_path(*args: str) -> None:
@@ -113,5 +126,41 @@ def read_or_write(
             return write(func, args, kwargs, place, prefix)
 
         return wrapper
+
+    return decorator
+
+
+def read_config(directory: str = './') -> Callable[[Callable], Callable]:
+    """
+    A decorator that reads configuration from a file with the same name as the decorated function.
+
+    The configuration file is assumed to be in the '.cfg' format and located in the specified `directory`.
+    If no arguments or keyword arguments are provided when calling the decorated function, the parameters
+    from the configuration file are used instead.
+
+    Args:
+        directory: The directory where the configuration file is located. Default: './' (the current directory)
+
+    Returns:
+        A decorator that can be applied to a function to read its configuration from a file.
+    """
+    # [DEFAULT]
+    # args = 1, 2
+    # kwargs = kwarg1=foo, kwarg2=bar
+    def decorator(func: Callable) -> Callable:
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                # Read the configuration file with the same name as the function, located in the specified directory
+                config = read_config_from_file(f'{directory}/{func.__name__}.cfg')
+
+                # If no arguments or keyword arguments are provided, use the parameters from the config file
+                if not args and not kwargs:
+                        args = config.args
+                        kwargs = config.kwargs
+
+                # Call the decorated function with the updated arguments and keyword arguments
+                return func(*args, **kwargs)
+
+            return wrapper
 
     return decorator

@@ -1,4 +1,45 @@
 from typing import Optional, Union
+import csv
+
+
+def append_row_to_csv(filename: str, row: list[str]) -> None:
+    """Appends a row to a CSV file.
+
+    Args:
+        filename: The name of the CSV file.
+        row: The row to be added to the file, as a list of values.
+    """
+    # Open the CSV file in append mode
+    with open(filename, 'a', newline='') as csvfile:
+        # Create a CSV writer object
+        writer = csv.writer(csvfile)
+        # Add the row to the CSV file
+        writer.writerow(row)
+
+def append_column_to_csv(filename: str, column: list[str]) -> None:
+    """Appends a column to a CSV file.
+
+    Args:
+        filename: The name of the CSV file.
+        column: The column to be added to the file, as a list of values. The value at index `i` will be added to the `i`-th row.
+    """
+    # Open the CSV file for reading
+    with open(filename, 'r') as csvfile:
+        # Create a CSV reader object
+        reader = csv.reader(csvfile)
+        # Read all the rows in the file
+        rows = list(reader)
+
+    # Add the new column to each row
+    for i, row in enumerate(rows):
+        row.append(column[i])
+
+    # Open the CSV file in write mode
+    with open(filename, 'w', newline='') as csvfile:
+        # Create a CSV writer object
+        writer = csv.writer(csvfile)
+        # Write all the rows to the file
+        writer.writerows(rows)
 
 
 def dict2str(
