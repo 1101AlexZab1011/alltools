@@ -130,8 +130,10 @@ def compute_kernel_coords(kernel_size: int, *coords: slice) -> tuple[slice, ...]
                 out.append(slice(-dist, None))
             else:
                 out.append(slice(None, dist))
-
-    return tuple(out)
+    if len(out) == 1:
+        return out
+    else:
+        return tuple(out)
 
 
 def conviter(
