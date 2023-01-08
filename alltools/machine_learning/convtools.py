@@ -131,7 +131,7 @@ def compute_kernel_coords(kernel_size: int, *coords: slice) -> tuple[slice, ...]
             else:
                 out.append(slice(None, dist))
     if len(out) == 1:
-        return out
+        return out[0]
     else:
         return tuple(out)
 
